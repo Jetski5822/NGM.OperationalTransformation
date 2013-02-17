@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using System;
 using System.Text;
-using NGM.ContentPad.Differential.DiffMatchPatch;
+using NGM.OperationalTransformation.Differential.DiffMatchPatch;
 using NUnit.Framework;
 
 namespace NGM.ContentPadTests.Differential {

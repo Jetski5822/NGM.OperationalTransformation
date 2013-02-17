@@ -1,6 +1,6 @@
 using Orchard.UI.Resources;
 
-namespace NGM.ContentPad {
+namespace NGM.OperationalTransformation {
     public class ResourceManifest : IResourceManifestProvider {
         public void BuildManifests(ResourceManifestBuilder builder) {
             var resourceManifest = builder.Add();

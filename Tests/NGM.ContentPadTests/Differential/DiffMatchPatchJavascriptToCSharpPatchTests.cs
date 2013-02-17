@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NGM.ContentPad.Differential.DiffMatchPatch;
-using NGM.ContentPad.Models;
+using NGM.OperationalTransformation.Differential.DiffMatchPatch;
+using NGM.OperationalTransformation.Models;
 using NUnit.Framework;
 using Newtonsoft.Json;
 

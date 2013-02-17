@@ -1,7 +1,7 @@
 ﻿using Orchard.ContentManagement.MetaData;
 using Orchard.Data.Migration;
 
-namespace NGM.ContentPad {
+namespace NGM.OperationalTransformation {
     public class Migrations : DataMigrationImpl {
         public int Create() {
             ContentDefinitionManager.AlterTypeDefinition("User", cfg => cfg.WithPart("ContentPadPart"));

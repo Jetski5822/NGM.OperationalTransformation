@@ -1,10 +1,10 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using NGM.ContentPad.Differential.DiffMatchPatch;
+using NGM.OperationalTransformation.Differential.DiffMatchPatch;
 using Orchard;
 
-namespace NGM.ContentPad.Models {
+namespace NGM.OperationalTransformation.Models {
     public class PatchModel {
         public List<List<object>> diffs = new List<List<object>>();
         public int start1;

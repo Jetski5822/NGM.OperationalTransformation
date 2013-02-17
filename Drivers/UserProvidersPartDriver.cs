@@ -1,10 +1,9 @@
 ﻿using JetBrains.Annotations;
-using NGM.ContentPad.Models;
+using NGM.OperationalTransformation.Models;
 using Orchard.ContentManagement.Drivers;
 using Orchard.ContentManagement;
-using Orchard.Security;
 
-namespace NGM.ContentPad.Drivers {
+namespace NGM.OperationalTransformation.Drivers {
     [UsedImplicitly]
     public class UserProvidersPartDriver : ContentPartDriver<ContentPadPart> {
         private const string TemplateName = "Parts/Content.Pad";

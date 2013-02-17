@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNet.SignalR.Hubs;
-using NGM.ContentPad.Models;
+using NGM.OperationalTransformation.Models;
 using NGM.SignalR;
 using Orchard.ContentManagement;
 using Orchard.ContentManagement.Aspects;
 using Orchard.Environment;
 using Orchard.Security;
 
-namespace NGM.ContentPad.Hubs {
+namespace NGM.OperationalTransformation.Hubs {
     //https://github.com/SignalR/SignalR/wiki/Hubs
     [HubName("contentHub")]
     public class ContentHub : OrchardHub {

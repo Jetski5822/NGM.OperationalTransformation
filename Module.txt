@@ -1,4 +1,4 @@
-﻿Name: Content Pad
+﻿Name: Operational Transformation
 AntiForgery: enabled
 Author: Nicholas Mayne
 Website: http://orchardforums.codeplex.com/
@@ -6,7 +6,7 @@ Version: 0.0.1.
 OrchardVersion: 1.6.0
 Description: Operational Transformation using SignalR
 Features:
-    NGM.ContentPad
+    NGM.OperationalTransformation
         Name: Content Pad
         Category: Content
         Description: Operational Transformation using SignalR

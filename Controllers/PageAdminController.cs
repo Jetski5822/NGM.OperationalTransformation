@@ -6,7 +6,7 @@ using Orchard.Logging;
 using Orchard.Settings;
 using Orchard.UI.Admin;
 
-namespace NGM.ContentPad.Controllers {
+namespace NGM.OperationalTransformation.Controllers {
     [Admin]
     public class PageAdminController : Controller
     {

@@ -1,6 +1,6 @@
 using Orchard.ContentManagement;
 
-namespace NGM.ContentPad.Models {
+namespace NGM.OperationalTransformation.Models {
     public class ContentPadPart : ContentPart {
     }
 }

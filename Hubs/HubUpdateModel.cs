@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using NGM.ContentPad.Differential.DiffMatchPatch;
+using NGM.OperationalTransformation.Differential.DiffMatchPatch;
 using Orchard.ContentManagement;
 using Orchard.Localization;
 
-namespace NGM.ContentPad.Hubs {
+namespace NGM.OperationalTransformation.Hubs {
     public class HubUpdateModel : IUpdateModel {
         private readonly string _elementId;
 

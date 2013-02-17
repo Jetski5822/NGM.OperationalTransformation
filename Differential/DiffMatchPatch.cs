@@ -26,7 +26,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 
-namespace NGM.ContentPad.Differential {
+namespace NGM.OperationalTransformation.Differential {
     namespace DiffMatchPatch {
         internal static class CompatibilityExtensions {
             // JScript splice function
