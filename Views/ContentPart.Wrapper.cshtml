@@ -1,0 +1,12 @@
+﻿@{
+    var html = ((IHtmlString)Model.Metadata.ChildContent).ToHtmlString();
+
+    Script.Require("ContentPad");
+}
+
+@if (!string.IsNullOrWhiteSpace(html)) {
+            @Display(Model.Metadata.ChildContent)
+    <div>
+        
+    </div>
+}
