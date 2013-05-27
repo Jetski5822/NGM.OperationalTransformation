@@ -5,9 +5,13 @@ using Orchard.Data.Migration;
 namespace NGM.OperationalTransformation {
     public class Migrations : DataMigrationImpl {
         public int Create() {
-            ContentDefinitionManager.AlterTypeDefinition("User", cfg => cfg.WithPart("ContentPadPart"));
+            ContentDefinitionManager.AlterPartDefinition("ContentPadPart", builder => builder
+                .Attachable()
+            );
+
+            ContentDefinitionManager.AlterTypeDefinition("Page", cfg => cfg.WithPart("ContentPadPart"));
         
-            return 1;
+            return 3;
         }
 
         public int UpdateFrom1() {
