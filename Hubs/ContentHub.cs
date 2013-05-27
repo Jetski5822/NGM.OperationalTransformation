@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using NGM.OperationalTransformation.Models;
 using NGM.SignalR;
@@ -11,7 +12,7 @@ using Orchard.Security;
 namespace NGM.OperationalTransformation.Hubs {
     //https://github.com/SignalR/SignalR/wiki/Hubs
     [HubName("contentHub")]
-    public class ContentHub : OrchardHub {
+    public class ContentHub : Hub {
         private readonly Work<IContentManager> _workContentManager;
         private readonly Work<IAuthenticationService> _workAuthenticationService;
 
@@ -32,6 +33,10 @@ namespace NGM.OperationalTransformation.Hubs {
         }
 
         public void Join(int contentItemId) {
+            Join(contentItemId, false);
+        }
+
+        public void Join(int contentItemId, bool reconnecting) {
             var user = AuthenticationService.GetAuthenticatedUser();
             var content = ContentManager.Get(contentItemId);
 
@@ -43,20 +48,26 @@ namespace NGM.OperationalTransformation.Hubs {
             var userViewModel = new UserViewModel(user);
             var contentGroupName = ContentGroupName(contentItemId);
 
+            if (reconnecting) {
+            }
+            else {
+            }
             // Tell the people who are editing this content that you are viewing it and cmaybe editing it.
             Clients.Group(contentGroupName).addUser(userViewModel, contentGroupName, isUserOwner).Wait();
-
             // Add the caller to the group so they receive content updates
             Groups.Add(Context.ConnectionId, contentGroupName);
         }
 
-        public void SendPatches(int contentItemId, string elementId, int contentItemVersion, List<PatchModel> patches) {
+        public void SendPatches(int contentItemId, string elementId, string elementName, int contentItemVersion, List<PatchModel> patches) {
             var patchModelToPatchMapper = new PatchModelToPatchMapper();
             var patchesTranslated = patches.Select(o => patchModelToPatchMapper.Map(o)).ToList();
 
             var draftContentItem = ContentManager.Get(contentItemId, VersionOptions.DraftRequired);
 
-            ContentManager.UpdateEditor(draftContentItem, new HubUpdateModel(elementId, patchesTranslated));
+            ContentManager.UpdateEditor(draftContentItem, new HubUpdateModel(elementName, patchesTranslated));
+
+            // TODO: This needs to be an options ('Auto Publish Item', but also allow people to osee if a draft is currently availible)
+            ContentManager.Publish(draftContentItem);
 
             Clients.Caller.changeAcknowledged(draftContentItem.Version);
 

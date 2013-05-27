@@ -1,4 +1,5 @@
 ﻿using Orchard.ContentManagement.MetaData;
+using Orchard.Core.Contents.Extensions;
 using Orchard.Data.Migration;
 
 namespace NGM.OperationalTransformation {
@@ -14,6 +15,14 @@ namespace NGM.OperationalTransformation {
             ContentDefinitionManager.AlterTypeDefinition("Page", cfg => cfg.WithPart("ContentPadPart"));
 
             return 2;
+        }
+
+        public int UpdateFrom2() {
+            ContentDefinitionManager.AlterPartDefinition("ContentPadPart", builder => builder
+                .Attachable()
+            );
+
+            return 3;
         }
     }
 }

@@ -5,7 +5,9 @@
 
     var ui = {
         events: {
-            textchange: 'contentpad.ui.textchange'
+            textchange: 'contentpad.ui.textchange',
+            patchesapplying: 'contentpad.ui.patchesapplying',
+            patchesapplied: 'contentpad.ui.patchesapplied'
         },
 
         initialize: function () {
@@ -16,7 +18,7 @@
             });
 
             var timeout;
-            $(":input").on('textchange', function(event) {
+            $(":input").on('textchange', function (event) {                
                 clearTimeout(timeout);
 
                 var self = this;
@@ -25,6 +27,24 @@
                     $ui.trigger(ui.events.textchange, self);
                 }, 250);
             });
+            
+            //$('body').on({
+            //    DOMNodeInserted: function (e) {
+            //        var element = e.target;
+            //        console.debug(element);
+            //    }
+            //});
+        },
+        
+        applypatch: function (element, patchedText) {
+            var $ui = $(this);
+            
+            $ui.trigger(ui.events.patchesapplying);
+            
+            $(element).val(patchedText);
+            $(element).data('pre', patchedText);
+            
+            $ui.trigger(ui.events.patchesapplied);
         }
     };
 

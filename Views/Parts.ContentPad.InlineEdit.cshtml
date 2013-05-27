@@ -1,0 +1,14 @@
+﻿@{
+    Script.Require("ContentPad");
+}
+@using (Script.Foot()) {
+    <script type="text/javascript">
+        $(function() {
+            var contentItemId = @Model.Id;
+
+            var contentItemVersion = @Model.ContentItem.Version;
+
+            $.contenthub.initConnection(contentItemId, contentItemVersion);
+        });
+    </script>
+}

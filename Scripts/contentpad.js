@@ -21,14 +21,14 @@
 
         var patches = patch.calculatepatch(previousText, newText);
 
-        if (patches == null) {
+        if (patches == null || patches.length == 0) {
             console.debug('No patch to send: New text: "' + newText + '", Previous Text: "' + previousText + '"');
             return;
         }
 
         console.debug('Patch to send: ' + patches.toString());
         
-        pad.server.sendPatches(contentitemid, $(self).attr("id"), contentitemversion, patches);
+        pad.server.sendPatches(contentitemid, $(self).attr("id"), $(self).attr("name"), contentitemversion, patches);
     });
     
     pad.client.changeAcknowledged = function (updatedContentItemVersion) {
@@ -38,19 +38,20 @@
 
     pad.client.applyPatches = function (elementId, patchedContentItemVersion, patches) {
         isInApply = true;
-        
+
         var self = $('#' + elementId);
         var currentOnScreenValue = self.val();
 
         var patchedText = patch.applypatch(patches, currentOnScreenValue);
 
-        $(self).val(patchedText);
-        $(self).data('pre', patchedText);
+        ui.applypatch(self, patchedText);
         
         isInApply = false;
     };
 
     $(function () {
+        var initial = true;
+
         console.debug("UI Initializing...");
         ui.initialize();
         console.debug("UI Initialized!");
@@ -65,11 +66,46 @@
             connection.hub.start(function() {
                 pad.server.join(contentItemId)
                     .fail(function (e) {
+                        console.debug(e);
                         console.debug("Connection failed to Initialize!");
                     })
                     .done(function() {
                         console.debug("Connection Initialized!");
                     });
+            });
+
+            connection.hub.stateChanged(function (change) {
+                if (change.newState === $.connection.connectionState.reconnecting) {
+                    
+                }
+                else if (change.newState === $.connection.connectionState.connected) {
+                    if (!initial) {
+                        
+                        
+                    } else {
+                        
+                    }
+
+                    initial = false;
+                }
+            });
+
+            connection.hub.disconnected(function () {
+                connection.hub.log('Dropped the connection from the server. Restarting in 5 seconds.');
+
+                // Restart the connection
+                setTimeout(function () {
+                    connection.hub.start(options)
+                                  .done(function () {
+                                      // Turn the firehose back on
+                                      pad.server.join(contentItemId, true).fail(function (e) {
+                                      });
+                                  });
+                }, 5000);
+            });
+
+            connection.hub.error(function (err) {
+                // Make all pending messages failed if there's an error
             });
 
             pad.client.addUser = function(user, groupName, isOwner) {

@@ -14,9 +14,11 @@ namespace NGM.OperationalTransformation.Drivers {
             }
         }
 
-        protected override DriverResult Editor(ContentPadPart userProvidersPart, dynamic shapeHelper) {
+        protected override DriverResult Editor(ContentPadPart contentPadPart, dynamic shapeHelper) {
+            if (contentPadPart.Id == 0) return null;
+
             return ContentShape("Parts_ContentPad_Edit", () => {
-                        return shapeHelper.EditorTemplate(TemplateName: TemplateName, Model: userProvidersPart, Prefix: Prefix);
+                        return shapeHelper.EditorTemplate(TemplateName: TemplateName, Model: contentPadPart, Prefix: Prefix);
                     });
         }
 

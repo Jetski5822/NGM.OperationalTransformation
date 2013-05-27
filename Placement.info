@@ -1,3 +1,4 @@
 ﻿<Placement>
   <Place Parts_ContentPad_Edit="Content:1"/>
+  <Place Parts_ContentPad_InlineEdit="Content:1"/>
 </Placement>

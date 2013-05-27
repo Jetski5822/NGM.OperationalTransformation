@@ -5,18 +5,18 @@ using Orchard.Localization;
 
 namespace NGM.OperationalTransformation.Hubs {
     public class HubUpdateModel : IUpdateModel {
-        private readonly string _elementId;
+        private readonly string _elementName;
 
         private readonly string _prefix;
         private readonly string _elementWithoutPrefix;
 
         private readonly List<Patch> _patches;
 
-        public HubUpdateModel(string elementId, List<Patch> patches) {
-            _elementId = elementId;
+        public HubUpdateModel(string elementName, List<Patch> patches) {
+            _elementName = elementName.Replace(".", "_");
 
-            _prefix = elementId.Substring(0, elementId.IndexOf('_'));
-            _elementWithoutPrefix = elementId.Substring(elementId.IndexOf('_') + 1, elementId.Length - (elementId.IndexOf('_') + 1));
+            _prefix = _elementName.Substring(0, _elementName.IndexOf('_'));
+            _elementWithoutPrefix = _elementName.Substring(_elementName.IndexOf('_') + 1, _elementName.Length - (_elementName.IndexOf('_') + 1));
 
             _patches = patches;
         }
