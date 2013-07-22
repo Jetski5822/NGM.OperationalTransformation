@@ -27,13 +27,6 @@
                     $ui.trigger(ui.events.textchange, self);
                 }, 250);
             });
-            
-            //$('body').on({
-            //    DOMNodeInserted: function (e) {
-            //        var element = e.target;
-            //        console.debug(element);
-            //    }
-            //});
         },
         
         applypatch: function (element, patchedText) {

@@ -13,7 +13,7 @@
         },
 
         applypatch: function (patches, currentvalue) {
-            console.debug('Patch to apply: ' + dmp.patch_deepCopy(patches).toString());
+            console.log('Patch to apply: ' + dmp.patch_deepCopy(patches).toString());
             
             return dmp.patch_apply(patches, currentvalue)[0];
         },

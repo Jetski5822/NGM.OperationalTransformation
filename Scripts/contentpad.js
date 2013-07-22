@@ -22,17 +22,19 @@
         var patches = patch.calculatepatch(previousText, newText);
 
         if (patches == null || patches.length == 0) {
-            console.debug('No patch to send: New text: "' + newText + '", Previous Text: "' + previousText + '"');
+            console.log('No patch to send: New text: "' + newText + '", Previous Text: "' + previousText + '"');
             return;
         }
 
-        console.debug('Patch to send: ' + patches.toString());
+        console.log('Patch to send: ' + patches.toString());
         
         pad.server.sendPatches(contentitemid, $(self).attr("id"), $(self).attr("name"), contentitemversion, patches);
     });
     
     pad.client.changeAcknowledged = function (updatedContentItemVersion) {
-        //var value = patchversionstobeapplied.shift();
+        var $contentPad = $(contentPad);
+        $contentPad.trigger(contentPad.events.changeAcknowledged, this.contentitemid);
+        
         this.contentitemversion = updatedContentItemVersion;
     };
 
@@ -52,25 +54,25 @@
     $(function () {
         var initial = true;
 
-        console.debug("UI Initializing...");
+        console.log("UI Initializing...");
         ui.initialize();
-        console.debug("UI Initialized!");
+        console.log("UI Initialized!");
 
         $.contenthub = {};
 
         $.contenthub.initConnection = function (contentItemId, contentItemVersion) {
-            console.debug("Connection Initializing...");
+            console.log("Connection Initializing...");
             contentitemid = contentItemId;
             contentitemversion = contentItemVersion;
 
             connection.hub.start(function() {
                 pad.server.join(contentItemId)
                     .fail(function (e) {
-                        console.debug(e);
-                        console.debug("Connection failed to Initialize!");
+                        console.log(e);
+                        console.log("Connection failed to Initialize!");
                     })
                     .done(function() {
-                        console.debug("Connection Initialized!");
+                        console.log("Connection Initialized!");
                     });
             });
 
@@ -112,4 +114,13 @@
             };
         };
     });
+    
+    var contentPad = {
+        events: {
+            changeAcknowledged: 'contentpad.changeAcknowledged'
+        }
+    };
+
+    window.contentpad = contentPad;
+    
 })(jQuery, $.connection, window, window.contentpad.ui, window.contentpad.patch);
